@@ -28,11 +28,31 @@
           </div>
 
           <div class="expiration-date">
-            <label for="expiry" class="sr-only">Expiration Date</label>
-            <input type="month" id="expiry" name="expiry" required>
+            <label for="exp-month" class="sr-only">Expiration Date</label>
+              <input
+                type="text"
+                id="exp-month"
+                name="exp-month"
+                placeholder="MM"
+                maxlength="2"
+                pattern="\d{2}"
+                inputmode="numeric"
+                required
+              >
+            <span class="separator">/</span>
+              <input
+                type="text"
+                id="exp-year"
+                name="exp-year"
+                placeholder="YY"
+                maxlength="2"
+                pattern="\d{2}"
+                inputmode="numeric"
+                required
+              >
             <small>Expiration date</small>
           </div>
-
+          
           <div class ="checkbox-container">
             <label class="remember">
               <input type="checkbox" name="remember" id="remember">

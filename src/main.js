@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardNumberInput = document.getElementById('card-number');
   const cvvInput = document.getElementById('cvv');
   const accountHolderInput = document.getElementById('account-holder');
-  const expiryInput = document.getElementById('expiry');
+  const expMonthInput = document.getElementById('exp-month');
+  const expYearInput = document.getElementById('exp-year');
+
   const submitButton = form.querySelector('button[type="submit"]');
 
   // Establecer número de tarjeta con espacios cada 4 caracteres
@@ -23,13 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const accountHolder = accountHolderInput.value.trim();
     const cardNumber = cardNumberInput.value.replace(/\s/g, '');
     const cvv = cvvInput.value.trim();
-    const expiry = expiryInput.value;
+    const month = expMonthInput.value.trim();
+    const year = expYearInput.value.trim();
 
     return (
       accountHolder !== '' &&
       /^\d{16}$/.test(cardNumber) &&
       /^\d{3}$/.test(cvv) &&
-      expiry !== ''
+      /^\d{2}$/.test(month) &&
+      /^\d{2}$/.test(year)
     );
   }
 
@@ -39,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Activar validación al escribir
-  [accountHolderInput, cardNumberInput, cvvInput, expiryInput].forEach(input => {
+  [accountHolderInput, cardNumberInput, cvvInput, expMonthInput, expYearInput].forEach(input => {
     input.addEventListener('input', toggleButton);
   });
 
@@ -48,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const accountHolder = accountHolderInput.value.trim();
     const cardNumber = cardNumberInput.value.replace(/\s/g, '');
     const cvv = cvvInput.value.trim();
-    const expiry = expiryInput.value;
+    const month = expMonthInput.value.trim();
+    const year = expYearInput.value.trim();
 
     let errors = [];
 
@@ -64,8 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
       errors.push('CVV must be exactly 3 digits.');
     }
 
-    if (!expiry) {
-      errors.push('Expiration Date is required.');
+    if (!/^\d{2}$/.test(month) || +month < 1 || +month > 12) {
+    errors.push('Expiration month must be between 01 and 12.');
+    }
+    if (!/^\d{2}$/.test(year)) {
+    errors.push('Expiration year must be two digits.');
     }
 
     if (errors.length > 0) {
