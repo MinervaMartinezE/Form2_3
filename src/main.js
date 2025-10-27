@@ -11,6 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const submitButton = form.querySelector('button[type="submit"]');
 
+  // Función para validar solo números
+function validateNumericInput(input) {
+  const value = input.value;
+  
+  if (/[^0-9]/.test(value)) {
+    input.classList.add('invalid');
+  } else {
+    input.classList.remove('invalid');
+  }
+}
+
   // Establecer número de tarjeta con espacios cada 4 caracteres
   cardNumberInput.addEventListener('input', (e) => {
     let value = e.target.value.replace(/\D/g, ''); // Eliminar todo lo que no sea número
@@ -45,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Activar validación al escribir
   [accountHolderInput, cardNumberInput, cvvInput, expMonthInput, expYearInput].forEach(input => {
     input.addEventListener('input', toggleButton);
+
   });
 
   // Validación final en envío del formulario
